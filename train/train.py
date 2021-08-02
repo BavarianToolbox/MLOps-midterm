@@ -68,6 +68,7 @@ def get_model(config):
         optimizer = optimizer,
         loss = config.loss,
         metrics = config.metrics
+    )
     
     return model
 
@@ -111,7 +112,9 @@ def get_args():
     return args
 
 
-def __main__():
+if __name__ == "__main__":
     args = get_args()
+    # print(args.project)
+    # print(args.cfg)
     config = load_run_config(args.cfg)
     train(config)
