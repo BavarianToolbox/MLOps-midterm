@@ -96,7 +96,7 @@ def train(project: str, config: dict):
         y = y_train,
         validation_data = (x_test, y_test),
         epochs = config.epochs,
-        callbacks = [WandbCallback]
+        callbacks = [WandbCallback()]
     )
     model.save(f'gs://constantin_midterm/train/models/{config.model_version}')
 
