@@ -53,7 +53,7 @@ def get_model(config):
     )
 
     # fine-tune or full-train
-    base.trainable = !bool(config.fine_tune)
+    base.trainable = not bool(config.fine_tune)
     
     # assemble model
     model = keras.Sequential([
