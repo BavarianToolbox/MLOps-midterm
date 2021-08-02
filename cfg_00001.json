@@ -1,0 +1,16 @@
+{
+    "fine_tune": "True",
+    "base": "EfficientNetB0",
+    "pool": "avg",
+    "head": "Dense(100)",
+    "optimizer": "adam",
+    "learning_rate": 0.005,
+    "epochs": 10,
+    "batch_size": 64,
+    "loss_function": "sparse_categorical_crossentropy",
+    "metrics":["sparse_categorical_accuracy"],
+    "dataset": "CIFAR-100",
+    "data_file": "training_data.dat",
+    "model_version": "model_00001",
+    "config_version": "cfg_00001"
+}
