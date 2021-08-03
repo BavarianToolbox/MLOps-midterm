@@ -8,4 +8,6 @@ RUN pip install --use-feature=2020-resolver -r reqs_train.txt
 
 #CMD ["python", "train.py", "-p", "$PROJ", "-c", "$CFG"]
 
-CMD python train.py -p $PROJ -c $CFG
+#CMD python train.py -p $PROJ -c $CFG
+
+CMD python train.py -p midterm-train-test -c cfg_00001.json
