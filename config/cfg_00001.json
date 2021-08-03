@@ -7,7 +7,7 @@
     "learning_rate": 0.005,
     "epochs": 10,
     "batch_size": 64,
-    "loss_function": "sparse_categorical_crossentropy",
+    "loss": "sparse_categorical_crossentropy",
     "metrics":["sparse_categorical_accuracy"],
     "dataset": "CIFAR-100",
     "data_file": "training_data.dat",
