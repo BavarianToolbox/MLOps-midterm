@@ -91,7 +91,7 @@ def train(project: str, config: dict):
     x_train, y_train, x_test, y_test = load_data(config.data_file)
     model = get_model(config)
     
-    # train and save
+    # train
     model.fit(
         x = x_train,
         y = y_train,
@@ -100,7 +100,10 @@ def train(project: str, config: dict):
         epochs = config.epochs,
         callbacks = [WandbCallback()]
     )
+
+    # save model and finish W&B run
     model.save(f'gs://constantin_midterm/train/models/{config.model_version}')
+    run.finish()
 
 
 def get_args():
