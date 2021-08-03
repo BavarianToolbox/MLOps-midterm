@@ -60,7 +60,7 @@ def get_model(config):
         base,
         keras.layers.Dense(100, activation = 'sigmoid')
     ])
-    print(f'Model summary: \n{model.summary()}')
+    print('model.summary()')
     
     # set optimizer and compile
     optimizer = tf.keras.optimizers.Adam(config.learning_rate)
@@ -102,6 +102,7 @@ def train(project: str, config: dict):
     )
 
     # save model and finish W&B run
+    print(f'Saving model under: {config.model_version}')
     model.save(f'gs://constantin_midterm/train/models/{config.model_version}')
     run.finish()
 
@@ -123,3 +124,4 @@ if __name__ == "__main__":
     proj = args.project
     config = load_run_config(args.cfg)
     train(proj, config)
+    quit()
