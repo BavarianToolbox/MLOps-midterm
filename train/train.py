@@ -30,7 +30,7 @@ def load_data(file_name: str):
 
     # load from bucket
     blob = bucket.blob(f'train/data/{file_name}')
-    [x_train, y_train, x_test, y_test] = pickle.load(blob)
+    [x_train, y_train, x_test, y_test] = pickle.loads(blob)
 
     # check shape
     assert x_train.shape == (50000, 32, 32, 3)
