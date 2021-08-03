@@ -5,7 +5,7 @@
     "head": "Dense(100)",
     "optimizer": "adam",
     "learning_rate": 0.005,
-    "epochs": 10,
+    "epochs": 20,
     "batch_size": 512,
     "loss": "sparse_categorical_crossentropy",
     "metrics":["acc"],

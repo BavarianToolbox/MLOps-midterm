@@ -11,4 +11,4 @@ RUN pip install -r reqs_train.txt
 
 #CMD python train.py -p $PROJ -c $CFG
 
-CMD python train.py -p midterm_train_test -c cfg_test.json
+CMD python train.py -p midterm-train -c cfg_00001.json
