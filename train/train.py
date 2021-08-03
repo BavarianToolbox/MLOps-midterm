@@ -104,7 +104,7 @@ def train(project: str, config: dict):
     # save model and finish W&B run
     print(f'Saving model under: {config.model_version}')
     model.save(f'gs://constantin_midterm/train/models/{config.model_version}')
-    run.finish()
+    wandb.finish()
 
 
 def get_args():
