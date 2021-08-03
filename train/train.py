@@ -95,6 +95,7 @@ def train(project: str, config: dict):
     model.fit(
         x = x_train,
         y = y_train,
+        batch_size = config.batch_size,
         validation_data = (x_test, y_test),
         epochs = config.epochs,
         callbacks = [WandbCallback()]

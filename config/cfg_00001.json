@@ -8,7 +8,7 @@
     "epochs": 10,
     "batch_size": 64,
     "loss": "sparse_categorical_crossentropy",
-    "metrics":["sparse_categorical_accuracy"],
+    "metrics":["acc", "sparse_categorical_accuracy"],
     "dataset": "CIFAR-100",
     "data_file": "training_data.dat",
     "model_version": "model_00001",
