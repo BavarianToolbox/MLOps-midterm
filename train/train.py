@@ -103,6 +103,7 @@ def train(project: str, config: dict):
         epochs = config.epochs,
         callbacks = [WandbCallback()]
     )
+    print('finished training')
     wandb.finish()
 
     # save model and finish W&B run
