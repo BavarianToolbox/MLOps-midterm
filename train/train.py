@@ -15,7 +15,8 @@ import wandb
 from wandb.keras import WandbCallback
 
 # suppress tf warnings
-tf.logging.set_verbosity(tf.logging.ERROR)
+# tf.logging.set_verbosity(tf.logging.ERROR) # doesn't work with TF2.x
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 # gcp bucket
 storage_client = storage.Client()
