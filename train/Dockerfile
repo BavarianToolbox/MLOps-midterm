@@ -4,4 +4,8 @@ ADD train.py reqs_train.txt ./
 
 RUN pip install --use-feature=2020-resolver -r reqs_train.txt
 
-ENTRYPOINT ["python", "train.py"]
+#ENTRYPOINT ["python", "train.py"]
+
+#CMD ["python", "train.py", "-p", "$PROJ", "-c", "$CFG"]
+
+CMD python train.py -p $PROJ -c $CFG
