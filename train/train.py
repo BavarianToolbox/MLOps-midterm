@@ -88,7 +88,7 @@ def train(project: str, config: dict):
     config = wandb.config
     
     # load data and model
-    x_train, y_train, x_test, y_test = load_data(config)
+    x_train, y_train, x_test, y_test = load_data(config.data_file)
     model = get_model(config)
     
     # train and save
