@@ -14,6 +14,9 @@ from google.cloud import storage
 import wandb
 from wandb.keras import WandbCallback
 
+# suppress tf warnings
+tf.logging.set_verbosity(tf.logging.ERROR)
+
 # gcp bucket
 storage_client = storage.Client()
 bucket = storage_client.bucket('constantin_midterm')
@@ -60,7 +63,7 @@ def get_model(config):
         base,
         keras.layers.Dense(100, activation = 'sigmoid')
     ])
-    print('model.summary()')
+    print(model.summary())
     
     # set optimizer and compile
     optimizer = tf.keras.optimizers.Adam(config.learning_rate)
@@ -100,11 +103,12 @@ def train(project: str, config: dict):
         epochs = config.epochs,
         callbacks = [WandbCallback()]
     )
+    wandb.finish()
 
     # save model and finish W&B run
     print(f'Saving model under: {config.model_version}')
     model.save(f'gs://constantin_midterm/train/models/{config.model_version}')
-    wandb.finish()
+    
 
 
 def get_args():
