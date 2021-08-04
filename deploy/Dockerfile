@@ -2,7 +2,7 @@
 
 FROM python:3.7
 
-RUN pip install fastapi uvicorn
+RUN pip install fastapi uvicorn tensorflow pandas
 
 EXPOSE 80
 
