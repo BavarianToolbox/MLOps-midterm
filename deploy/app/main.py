@@ -1,4 +1,4 @@
-from predict import predict, read_image
+from .predict.predict import predict, read_image
 from typing import Optional
 from fastapi import FastAPI
 from fastapi import UploadFile, File
@@ -28,14 +28,3 @@ async def predict_image(file: UploadFile = File(...)):
     print(f'Predicted class: {pred}')
     
     return pred
-
-
-@app.post("/predict/image")
-async def predict_api(file: UploadFile = File(...)):
-    extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png")
-    if not extension:
-        return "Image must be jpg or png format!"
-    image = read_image(await file.read())
-    prediction = predict(image)
-
-    return prediction
