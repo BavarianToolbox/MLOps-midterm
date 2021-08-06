@@ -22,7 +22,7 @@ def wandb_init():
     # wandb_key = json.loads(blob.download_as_string())
 
     # local version
-    # os.environ["WANDB_API_KEY"] = "..."
+    os.environ["WANDB_API_KEY"] = "..."
 
     # global run 
     run = wandb.init(

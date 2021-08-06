@@ -24,7 +24,7 @@ async def shutdown_event():
 @app.get("/")
 def read_root():
     
-    return {"Hello": "World"}
+    return {"Welcome!": "To Constantin's midterm image classification app!"}
 
 
 @app.post("/predict/cifar100")

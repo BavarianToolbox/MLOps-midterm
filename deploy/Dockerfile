@@ -3,8 +3,8 @@
 
 FROM python:3.7
 
-#RUN pip install Pillow pandas fastapi uvicorn python-multipart wandb google-cloud-storage
-RUN pip install fastapi uvicorn tensorflow pandas Pillow python-multipart wandb google-cloud-storage
+#RUN pip install Pillow pandas fastapi uvicorn python-multipart wandb google-cloud-storage matplotlib
+RUN pip install fastapi uvicorn tensorflow pandas Pillow python-multipart wandb google-cloud-storage matplotlib
 
 EXPOSE 80
 

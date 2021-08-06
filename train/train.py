@@ -60,10 +60,14 @@ def get_model(config):
     base.trainable = not bool(config.fine_tune)
     
     # assemble model
-    model = keras.Sequential([
-        base,
-        keras.layers.Dense(100, activation = 'sigmoid')
-    ])
+    # model = keras.Sequential([
+    #     base,
+    #     keras.layers.Dropout(0.2),
+    #     keras.layers.Dense(100, activation = 'sigmoid')
+    # ])
+    drop_layer = keras.layers.Dropout(0.2)(base.output)
+    pred_layer = keras.layers.Dense(100, activation = 'sigmoid')(drop_layer)
+    model = keras.models.Model(inputs = base.inputs, outputs = pred_layer)
     print(model.summary())
     
     # set optimizer and compile

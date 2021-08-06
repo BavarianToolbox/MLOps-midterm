@@ -4,7 +4,7 @@ The image classification application is containerized, monitored, and continuous
 
 ## Web Application
 
-The web-app is built using FastAPI and deployed on a uvicorn server inside a container. The application uses an Tensorflow Keras EfficientNetB0 model fine-tuned on the CIFAR-100 dataset (refer to the [training repository]() for more details). The model is loaded into the application from a GCP bucket when the `predict_image` POST method is invoked for the first time.
+The web-app is built using FastAPI and deployed on a uvicorn server inside a container. The application uses a Tensorflow Keras EfficientNetB0 model fine-tuned on the CIFAR-100 dataset (refer to the [training repository](https://github.com/BavarianToolbox/MLOps-midterm/tree/main/train) for more details) to predict the class of any .jpg, .jpeg, or .png image. The trained model is loaded into the application from a GCP bucket when the `predict_image` POST method is invoked for the first time. Uploaded images are checked for a valid file extension and resized to the 32x32 size required by the model.
 
 ## Monitoring
 
