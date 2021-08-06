@@ -18,7 +18,7 @@ The Raw Prediction Table tracks the predicted class, determined based on the ind
 
 ![Raw Prediction Table](https://github.com/BavarianToolbox/MLOps-midterm/blob/main/deploy/figures/Raw_Prediction_Table.png "Raw Prediction Table")
 
-The W&B credentials necessary to log information to a specific W&B account are stored in the Google Secret Manager and loaded as an environment variable when the container is deployed. 
+The W&B credentials necessary to log information to a specific W&B account are stored in the Google Secret Manager and loaded as an environment variable when the container is deployed with Google Cloud Run.
 
 ## Containerization
 
