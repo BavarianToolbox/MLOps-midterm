@@ -1,7 +1,6 @@
 import wandb
 import numpy as np
 import pandas as pd
-import os
 import matplotlib.cm as cm
 
 import tensorflow as tf
@@ -14,16 +13,15 @@ tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 model = None
 input_shape = (32, 32)
 labels = pd.read_csv('/app/predict/labels.csv', header = None)[0].to_list()
-# last_conv_name = 'top_conv'
 
 
 def load_model():
     '''Load Keras model from GCP Bucket'''
-    # GCP version
     print('Loading model')
-    # model = tf.keras.models.load_model('gs://constantin_midterm/train/models/model_00001')
+    # GCP version
+    model = tf.keras.models.load_model('gs://constantin_midterm/train/models/model_00002')
     # local version
-    model = tf.keras.models.load_model('/app/model_test')
+    # model = tf.keras.models.load_model('/app/model_00002')
     print('Model loaded')
 
     return model
@@ -73,37 +71,26 @@ def superimpose(img, heatmap, alpha=0.4):
 
 def get_gradcam_image(img_array, model, last_conv_layer_name, pred_index=None):
     '''Based on: https://keras.io/examples/vision/grad_cam/'''
-    # First, we create a model that maps the input image to the activations
-    # of the last conv layer as well as the output predictions
+    
     grad_model = tf.keras.models.Model(
         [model.inputs],
         [model.get_layer(last_conv_layer_name).output, model.output]
     )
 
-    # Then, we compute the gradient of the top predicted class for our input image
-    # with respect to the activations of the last conv layer
     with tf.GradientTape() as tape:
         last_conv_layer_output, preds = grad_model(img_array)
         if pred_index is None:
             pred_index = tf.argmax(preds[0])
         class_channel = preds[:, pred_index]
 
-    # This is the gradient of the output neuron (top predicted or chosen)
-    # with regard to the output feature map of the last conv layer
     grads = tape.gradient(class_channel, last_conv_layer_output)
 
-    # This is a vector where each entry is the mean intensity of the gradient
-    # over a specific feature map channel
     pooled_grads = tf.reduce_mean(grads, axis=(0, 1, 2))
 
-    # We multiply each channel in the feature map array
-    # by "how important this channel is" with regard to the top predicted class
-    # then sum all the channels to obtain the heatmap class activation
     last_conv_layer_output = last_conv_layer_output[0]
     heatmap = last_conv_layer_output @ pooled_grads[..., tf.newaxis]
     heatmap = tf.squeeze(heatmap)
 
-    # For visualization purpose, we will also normalize the heatmap between 0 & 1
     heatmap = tf.maximum(heatmap, 0) / tf.math.reduce_max(heatmap)
     heatmap = heatmap.numpy()
 
@@ -127,7 +114,13 @@ def predict(img: np.ndarray):
     pred_class = labels[max_pred_idx]
     
     # get gradcam image
-    gradcam_image = get_gradcam_image(img, model, 'top_conv')
+    # This is pointless with the EfficientNetB0 model when using input
+    # images of size 32x32 because the activations from the final convolution
+    # are 1x1x1280. Grad-CAM requires expanding the activations form the final convolution
+    # to the size of the input image. Expanding a 1x1 tensor to 32x32 would result in all
+    # the same values throughout the 32x32 heatmap, which is pointless.
+    
+    # gradcam_image = get_gradcam_image(img, model, 'top_conv')
 
     # log to w&b
     cols_1 = [
@@ -136,8 +129,8 @@ def predict(img: np.ndarray):
         'Index of max prediction',
         'Max prediction',
         'Predicted class',
-        'Input image',
-        'Input image with Grad-CAM heatmap'
+        'Input image'
+        #'Input image with Grad-CAM heatmap'
     ]
     data_1 = [[
         orig_img_size[0],
@@ -148,11 +141,11 @@ def predict(img: np.ndarray):
         wandb.Image(
             Image.fromarray(np.squeeze(img)), 
             caption = f'Predicted class: {pred_class}'
-        ),
-        wandb.Image(
-            gradcam_image,
-            caption = 'Grad-CAM heatmap'
         )
+        # wandb.Image(
+        #     gradcam_image,
+        #     caption = 'Grad-CAM heatmap'
+        # )
     ]]
 
     cols_2 = ['Predicted class', *labels]

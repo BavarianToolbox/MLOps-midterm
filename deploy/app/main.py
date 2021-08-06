@@ -1,5 +1,5 @@
 from .predict.predict import predict, read_image
-from .predict.logging import gcp_init, wandb_init, wandb_end
+from .predict.logging import wandb_init, wandb_end
 from typing import Optional
 from fastapi import FastAPI
 from fastapi import UploadFile, File
@@ -22,7 +22,7 @@ async def shutdown_event():
 @app.get("/")
 def read_root():
     
-    return {"Welcome!": "To Constantin's midterm image classification app!"}
+    return {"Welcome!": "This is Constantin's midterm image classification app!"}
 
 
 @app.post("/predict/cifar100")
@@ -32,8 +32,10 @@ async def predict_image(file: UploadFile = File(...)):
     if extension not in ('jpg', 'jpeg', 'png'):
         return f'{file.filename} is not the propper format! \
             Must be .jpg, .jpeg, or .png'
+    
     # decode and load image
     img = read_image(await file.read())
+    
     # predict
     pred = predict(img)
     print(

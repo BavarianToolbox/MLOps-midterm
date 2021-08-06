@@ -1,21 +1,19 @@
 import wandb
-import os
-import json
 import datetime
-from google.cloud import storage
 
 
 def wandb_init():
     '''Initialize W&B run'''
 
     # local version
-    os.environ["WANDB_API_KEY"] = "..."
+    # os.environ["WANDB_API_KEY"] = "..."
+    # cloud version sets ENV variable with Secret manager and Cloud Run
 
     # global run 
     run = wandb.init(
-        project = 'midterm-prod-monitor-dev-gcp',
+        project = 'midterm-prod-monitor-gcp',
         group = wandb.util.generate_id(),
-        tags = ["Production"],
+        tags = ["Production", "GCP"],
         config = {'launch':str(datetime.datetime.now())}
     )
 
