@@ -12,7 +12,7 @@ The deployed web-app is monitored using Weights and Biases (W&B). In addition to
 
 The Prediction Information Table tracks input image statistics (original width, height, and a copy of the preprocessed input image) and prediction information (the index and value of the maximum prediction from the final 100-dimensional, sigmoid-activated output layer, and the predicted class from the CIFAR-100 dataset).
 
-![Prediction Information Table](https://github.com/BavarianToolbox/MLOps-midterm/blob/main/deploy/figuers/Prediction_Information_Table.png?raw=True "Prediction Information Table")
+![Prediction Information Table](https://github.com/BavarianToolbox/MLOps-midterm/blob/main/deploy/figures/Prediction_Information_Table.png)
 
 The Raw Prediction Table tracks the predicted class, determined based on the index of the maximum value from the final 100-dimensional output layer, and all the values from the final 100-dimensional layer.
 
