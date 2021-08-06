@@ -92,7 +92,10 @@ def train(project: str, config: dict):
     '''W&B monitor initialization, training, and model saving'''
     
     # set up W&B run
-    run = wandb.init(project=project, config=config)
+    run = wandb.init(
+        project=project,
+        group = wandb.util.generate_id(),
+        config=config)
     config = wandb.config
     
     # load data and model
