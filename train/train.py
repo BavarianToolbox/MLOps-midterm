@@ -115,8 +115,13 @@ def train(project: str, config: dict):
     wandb.finish()
 
     # save model and finish W&B run
-    print(f'Saving model under: {config.model_version}')
-    model.save(f'gs://constantin_midterm/train/models/{config.model_version}')
+    print(f'Saving model...')
+    # model.save(f'gs://constantin_midterm/train/models/{config.model_version}')
+    keras.models.save_model(
+        model, f'gs://constantin_midterm/train/models/{config.model_version}',
+        options=tf.saved_model.SaveOptions(experimental_custom_gradients=True)
+    )
+    print(f'Model saved under: {config.model_version}')
     
 
 
