@@ -68,7 +68,7 @@ def get_model(config):
     drop_layer = keras.layers.Dropout(0.2)(base.output)
     pred_layer = keras.layers.Dense(100, activation = 'sigmoid')(drop_layer)
     model = keras.models.Model(inputs = base.inputs, outputs = pred_layer)
-    print(model.summary())
+    # print(model.summary())
     
     # set optimizer and compile
     optimizer = tf.keras.optimizers.Adam(config.learning_rate)

@@ -5,7 +5,6 @@ import os
 import matplotlib.cm as cm
 
 import tensorflow as tf
-from tensorflow.keras import backend as K
 # from google.cloud import storage
 
 from PIL import Image
@@ -24,7 +23,7 @@ def load_model():
     print('Loading model')
     # model = tf.keras.models.load_model('gs://constantin_midterm/train/models/model_00001')
     # local version
-    model = tf.keras.models.load_model('/app/model_00001')
+    model = tf.keras.models.load_model('/app/model_test')
     print('Model loaded')
 
     return model
@@ -49,7 +48,7 @@ def preprocess(img: Image.Image):
 
 
 def superimpose(img, heatmap, alpha=0.4):
-    '''Source: https://keras.io/examples/vision/grad_cam/'''
+    '''Based on: https://keras.io/examples/vision/grad_cam/'''
     # Rescale heatmap to a range 0-255
     heatmap = np.uint8(255 * heatmap)
 
@@ -72,26 +71,21 @@ def superimpose(img, heatmap, alpha=0.4):
     return superimposed_img
 
 
-def get_gradcam_image(img_array, model, last_conv_layer_name, preds, pred_index=None):
-    '''Source: https://keras.io/examples/vision/grad_cam/'''
+def get_gradcam_image(img_array, model, last_conv_layer_name, pred_index=None):
+    '''Based on: https://keras.io/examples/vision/grad_cam/'''
     # First, we create a model that maps the input image to the activations
     # of the last conv layer as well as the output predictions
-    # grad_model = tf.keras.models.Model(
-    #     [model.inputs], [model.get_layer('efficientnetb0').get_layer(last_conv_layer_name).output, model.output]
-    # )
-    act_function = K.function(
-        [model.get_layer('efficientnetb0').input], 
-        [model.get_layer('efficientnetb0').get_layer(last_conv_layer_name).output]
+    grad_model = tf.keras.models.Model(
+        [model.inputs],
+        [model.get_layer(last_conv_layer_name).output, model.output]
     )
 
     # Then, we compute the gradient of the top predicted class for our input image
     # with respect to the activations of the last conv layer
     with tf.GradientTape() as tape:
-        # last_conv_layer_output, preds = grad_model(img_array)
-        # if pred_index is None:
-        #     pred_index = tf.argmax(preds[0])
-        temp_output = act_function(img_array)
-        last_conv_layer_output = tf.convert_to_tensor(temp_output[0])
+        last_conv_layer_output, preds = grad_model(img_array)
+        if pred_index is None:
+            pred_index = tf.argmax(preds[0])
         class_channel = preds[:, pred_index]
 
     # This is the gradient of the output neuron (top predicted or chosen)
@@ -133,7 +127,7 @@ def predict(img: np.ndarray):
     pred_class = labels[max_pred_idx]
     
     # get gradcam image
-    gradcam_image = get_gradcam_image(img, model, 'top_conv', preds_raw)
+    gradcam_image = get_gradcam_image(img, model, 'top_conv')
 
     # log to w&b
     cols_1 = [

@@ -5,21 +5,8 @@ import datetime
 from google.cloud import storage
 
 
-def gcp_init():
-    '''Initialize GCP Bucket connection'''
-    # gcp bucket
-    # storage_client = storage.Client()
-    # global bucket
-    # bucket = storage_client.bucket('constantin_midterm')
-
-
 def wandb_init():
     '''Initialize W&B run'''
-    # wandb key
-
-    # cloud version
-    # blob = bucket.blob('train/keys/wandb_key.json')
-    # wandb_key = json.loads(blob.download_as_string())
 
     # local version
     os.environ["WANDB_API_KEY"] = "..."

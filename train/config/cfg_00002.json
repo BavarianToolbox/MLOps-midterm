@@ -5,12 +5,12 @@
     "head": "Dense(100)",
     "optimizer": "adam",
     "learning_rate": 0.005,
-    "epochs": 20,
+    "epochs": 25,
     "batch_size": 512,
     "loss": "sparse_categorical_crossentropy",
     "metrics":["acc"],
     "dataset": "CIFAR-100",
     "data_file": "training_data.dat",
-    "model_version": "model_00001",
-    "config_version": "cfg_00001"
+    "model_version": "model_00002",
+    "config_version": "cfg_00002"
 }
