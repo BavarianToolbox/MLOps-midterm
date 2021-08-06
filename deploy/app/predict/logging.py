@@ -1,5 +1,6 @@
 import wandb
 import os
+import json
 import datetime
 from google.cloud import storage
 
@@ -7,8 +8,9 @@ from google.cloud import storage
 def gcp_init():
     '''Initialize GCP Bucket connection'''
     # gcp bucket
-    storage_client = storage.Client()
-    bucket = storage_client.bucket('constantin_midterm')
+    # storage_client = storage.Client()
+    # global bucket
+    # bucket = storage_client.bucket('constantin_midterm')
 
 
 def wandb_init():
@@ -16,15 +18,15 @@ def wandb_init():
     # wandb key
 
     # cloud version
-    blob = bucket.blob('train/keys/wandb_key.json')
-    wandb_key = json.loads(blob.download_as_string())
+    # blob = bucket.blob('train/keys/wandb_key.json')
+    # wandb_key = json.loads(blob.download_as_string())
 
     # local version
     # os.environ["WANDB_API_KEY"] = "..."
 
     # global run 
     run = wandb.init(
-        project = 'midterm-prod-monitor-dev',
+        project = 'midterm-prod-monitor-dev-gcp',
         group = wandb.util.generate_id(),
         tags = ["Production"],
         config = {'launch':str(datetime.datetime.now())}

@@ -15,15 +15,12 @@ input_shape = (32, 32)
 labels = pd.read_csv('/app/predict/labels.csv', header = None)[0].to_list()
 
 
-
-
-
 def load_model():
     '''Load Keras model from GCP Bucket'''
     # GCP version
-    model = tf.keras.models.loadmodel('gs://constantin_midterm/train/models/model_00001')
-    # local version
     print('Loading model')
+    model = tf.keras.models.load_model('gs://constantin_midterm/train/models/model_00001')
+    # local version
     # model = tf.keras.models.load_model('/app/model_00001')
     print('Model loaded')
 
@@ -83,12 +80,12 @@ def predict(img: np.ndarray):
     cols_2 = ['Predicted class', *labels]
     data_2 = [pred_class, *preds]
     wandb.run.log({
-        'Prediction Information' : wandb.Table(
+        'Prediction Information Table' : wandb.Table(
             columns=cols_1,
             data = data_1,
             allow_mixed_types=True
         ),
-        'Raw Prediction': wandb.Table(
+        'Raw Prediction Table': wandb.Table(
             columns = cols_2,
             data = [data_2],
             allow_mixed_types=True

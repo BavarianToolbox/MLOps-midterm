@@ -9,8 +9,8 @@ app = FastAPI()
 
 @app.on_event('startup')
 async def startup_event():
-    print('Initializing GCP connection.')
-    gcp_init()
+    # print('Initializing GCP connection.')
+    # gcp_init()
     print('Initializing W&B run.')
     wandb_init()
 
