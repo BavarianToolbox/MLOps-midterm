@@ -1,4 +1,5 @@
-FROM tensorflow/tensorflow:latest-gpu
+# FROM tensorflow/tensorflow:latest-gpu
+FROM tensorflow/tensorflow:nightly-gpu
 
 ADD train.py reqs_train.txt ./
 
