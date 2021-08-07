@@ -25,4 +25,4 @@ The training process is monitored using Weights and Biases (W&B). In addition to
 
 ## Notebooks
 
- The [nbs]() folder contains jupyter notebooks used to aid in the development process, such as [exploratory data analysis](https://github.com/BavarianToolbox/MLOps-midterm/blob/main/train/nbs/EDA.ipynb) and a [training playground](https://github.com/BavarianToolbox/MLOps-midterm/blob/main/train/nbs/training_playground.ipynb).
+ The [nbs](https://github.com/BavarianToolbox/MLOps-midterm/tree/main/train/nbs) folder contains jupyter notebooks used to aid in the development process, such as [exploratory data analysis](https://github.com/BavarianToolbox/MLOps-midterm/blob/main/train/nbs/EDA.ipynb) and a [training playground](https://github.com/BavarianToolbox/MLOps-midterm/blob/main/train/nbs/training_playground.ipynb).
